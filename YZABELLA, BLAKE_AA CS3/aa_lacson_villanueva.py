@@ -13,7 +13,7 @@ class Plant:
         if self.health < 0:
             self.health = 0
         print(f"{self.name} takes {amount} damage. (Health: {self.health})")
-        
+     
 class Zombie:
     def __init__ (self, name, health, damage, distance):
         self.name = name
@@ -21,15 +21,16 @@ class Zombie:
         self.damage = damage
         self.distance = distance
 
-    def move (self, distance):
-        self.distance = distance
-        print(f"{self.name} moves {self.distance} towards the plants.")
+    def move(self):
+          if self.distance > 0:
+              self.distance -= 1 
+          print(f"{self.name} moves towards the plants. (Distance: {self.distance})")
 
     def attack (self, plant):
         print(f"{self.name} attacks {plant.name} with {self.damage}.")
-        plant.take_damage(plant.damage
+        plant.take_damage(plant.damage)
         
-    def take_damage(self, amount):
+def take_damage(self, amount):
     if self.health > 0:
         self.health -= amount 
         if self.health < 0:
@@ -61,10 +62,11 @@ def run_game():
 
         if plant2.health > 0:
             plant2.attack(zombie)
+
         if zombie.health == 0:
             print("The plants saved the day!")
             return
-            
+
         if zombie.distance > 0:
             zombie.move()
         else:
