@@ -7,11 +7,12 @@ class Plant:
     def attack (self, zombie):
         print (f"{self.name} attacks {zombie.name} with {self.damage} damage.")
         
-    def take_damage (self, amount):
-        self.take_damage -= self.health
+    def take_damage(self, amount):
+        if self.health > 0:
+            self.health -= amount 
         if self.health < 0:
             self.health = 0
-        print (f"{self.name} takes {self.amount} damage.")
+        print(f"{self.name} takes {amount} damage. (Health: {self.health})")
         
 class Zombie:
     def __init__ (self, name, health, damage, distance):
@@ -26,14 +27,15 @@ class Zombie:
 
     def attack (self, plant):
         print(f"{self.name} attacks {plant.name} with {self.damage}.")
-        self.take_damage(self.damage)
+        plant.take_damage(plant.damage
         
-
-    def take_damage (self, amount):
-        if self.health > 0:
-            self.health - self.take_damage == self.health
-        print (f"{self.name} takes {self.amount} damage.")
-      
+    def take_damage(self, amount):
+    if self.health > 0:
+        self.health -= amount 
+        if self.health < 0:
+            self.health = 0
+        print(f"{self.name} takes {amount} damage. (Health: {self.health})")
+    
 
 def run_game():
     plant1 = Plant("Charles_Cabbage", 100, 15)
@@ -47,7 +49,11 @@ def run_game():
         print(f"Turn {turn}")
 
         if plant1.health > 0:
-            plant1.attack(zombie)
+            target = plant1
+        elif plant2.health > 0:
+            target = plant2
+        else:
+            target = None
 
         if zombie.health == 0:
             print(f"{zombie.name} was defeated!")
@@ -55,16 +61,10 @@ def run_game():
 
         if plant2.health > 0:
             plant2.attack(zombie)
-
         if zombie.health == 0:
             print("The plants saved the day!")
             return
-
-        if plant1.health > 0:
-            target = plant1
-        else:
-            target = plant2
-
+            
         if zombie.distance > 0:
             zombie.move()
         else:
